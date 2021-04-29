@@ -1,0 +1,148 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "test swagger",
+        "description": "api testing",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:4400/api/v1",
+    "basePath": "",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "tags": [
+        {
+            "name": "Backend",
+            "description": "API for backend"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get all user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "this is create user request",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK"
+                    },
+                    "500":{
+                        "description": "INTERNAL SERVER ERROR"
+                    }
+                }
+            }
+        },
+        "/user/{id}":{
+            "get":{
+                "tags":["users"],
+                "summary": "Find One User",
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "required": true,
+                        "description": "user id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "schema":{
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "500":{
+                        "description": "INTERNAL SERVER ERROR"
+                    }
+                }
+            },
+            "put":{
+                "tags":["users"],
+                "summary": "Update User",
+                "parameters": [
+                {
+                    "name":"id",
+                    "in": "path",
+                    "required": true,
+                    "description": "user id",
+                    "type": "string"
+                },
+                {
+                    "name": "body",
+                    "in": "body",
+                    "description": "update data",
+                    "schema": {
+                        "$ref": "#/definitions/User"
+                    }
+                }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "UPDATED"
+                    },
+                    "500":{
+                        "description": "INTERNAL SERVER ERROR"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Users": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/User"
+                    }
+                }
+            }
+        }
+    }
+}
